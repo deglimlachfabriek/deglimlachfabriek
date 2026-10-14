@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact — De Glimlachfabriek</title>
+  <meta name="description" content="Contacteer De Glimlachfabriek voor samenwerkingen, tips of vragen." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img src="icons/icon-192.svg" alt="logo" class="logo" />
+        <div class="brand-text">
+          <h1>De Glimlachfabriek</h1>
+          <p class="slogan">Van een idee naar een beweging</p>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Hoofdmenu">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="dagelijkse-hoop.html">Dagelijkse Hoop</a></li>
+          <li><a href="verhalen.html">Verhalen</a></li>
+          <li><a href="praktische-hulp.html">Praktische Hulp</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <h2>Contact</h2>
+      <p class="lead">We horen graag van je — vragen, suggesties of verhalen. Vul onderstaand formulier in of stuur een e-mail.</p>
+    </section>
+
+    <section class="contact-card card">
+      <form id="contact-form" class="form" action="#" method="post" onsubmit="return handleContact(event)">
+        <label for="name">Naam</label>
+        <input id="name" name="name" type="text" required />
+
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" required />
+
+        <label for="message">Bericht</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Verstuur</button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+
+        <p class="muted">Optioneel: verbind met Formspree voor echte ontvangst. Open config.json en zet je Formspree ID (gratis). Als dat niet is ingesteld, gebruiken we de mail-client als fallback.</p>
+      </form>
+
+      <div class="contact-alt">
+        <h4>Direct e-mail</h4>
+        <p>Stuur naar: <a href="mailto:info@deglimlachfabriek.nl">info@deglimlachfabriek.nl</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year5"></span> De Glimlachfabriek</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

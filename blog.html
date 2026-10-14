@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Blog — De Glimlachfabriek</title>
+  <meta name="description" content="Blog van De Glimlachfabriek: verhalen, tips en ideeën." />
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">
+        <img src="icons/icon-192.svg" alt="logo" class="logo">
+        <div class="brand-text">
+          <h1>De Glimlachfabriek</h1>
+          <p class="slogan">Blog</p>
+        </div>
+      </a>
+      <nav class="main-nav" aria-label="Hoofdmenu">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="dagelijkse-hoop.html">Dagelijkse Hoop</a></li>
+          <li><a href="verhalen.html">Verhalen</a></li>
+          <li><a href="praktische-hulp.html">Praktische Hulp</a></li>
+          <li><a href="blog.html" aria-current="page">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-header">
+      <h2>Blog</h2>
+      <p class="lead">Korte posts over hoop, AI-ideeën en praktische stappen. Nieuw: we publiceren elke maand een nieuw thema.</p>
+    </section>
+
+    <section class="card">
+      <article class="story">
+        <h3><a href="posts/post-1.html">Hoe kleine gewoonten grote verandering brengen</a></h3>
+        <p class="muted">14 oktober 2026 — Door De Redactie</p>
+        <p>Korte samenvatting: een concreet stappenplan om elke dag 5 minuten te investeren in jezelf.</p>
+      </article>
+    </section>
+
+    <section class="card">
+      <article class="story">
+        <h3><a href="posts/post-2.html">AI voor eenvoudige taken: tips voor beginners</a></h3>
+        <p class="muted">7 oktober 2026 — Door De Redactie</p>
+        <p>Korte samenvatting: praktische voorbeelden van hoe AI dagelijkse taken kan verlichten zonder ingewikkelde instellingen.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year-blog"></span> De Glimlachfabriek</p>
+    </div>
+  </footer>
+
+  <script>document.getElementById('year-blog').textContent = new Date().getFullYear();</script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

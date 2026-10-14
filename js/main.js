@@ -1,12 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Main JS for De Glimlachfabriek (enhanced)
+const CONFIG_PATH = '/config.json';
+
+async function loadConfig(){
+  try{
+    const res = await fetch(CONFIG_PATH);
+    if(!res.ok) return {};
+    return await res.json();
+  }catch(e){
+    return {};
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const config = await loadConfig();
+
+  // Insert current year in footers
   const year = new Date().getFullYear();
   for (let i = 1; i <= 7; i++) {
     const el = document.getElementById('year' + (i === 1 ? '' : i));
     if (el) el.textContent = year;
   }
   const el0 = document.getElementById('year');
-  if (el0) el0.textContent = year;
+  if(el0) el0.textContent = year;
 
+  // Nav toggle for small screens
   const navToggle = document.getElementById('nav-toggle');
   if (navToggle) {
     const mainNav = document.getElementById('main-nav');
@@ -17,22 +34,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const navToggle2 = document.getElementById('nav-toggle-2');
-  if (navToggle2) {
-    const mainNav2 = document.getElementById('main-nav-2');
-    navToggle2.addEventListener('click', () => {
-      const expanded = navToggle2.getAttribute('aria-expanded') === 'true';
-      navToggle2.setAttribute('aria-expanded', String(!expanded));
-      if (mainNav2) mainNav2.style.display = expanded ? 'flex' : 'block';
+  // Theme (dark mode) handling
+  const themeToggle = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('dgf_theme');
+  const applyTheme = (theme) => {
+    const root = document.documentElement;
+    if(theme === 'dark'){
+      root.classList.add('dark');
+      root.setAttribute('data-theme','dark');
+      if(themeToggle) themeToggle.setAttribute('aria-pressed','true');
+    }else{
+      root.classList.remove('dark');
+      root.removeAttribute('data-theme');
+      if(themeToggle) themeToggle.setAttribute('aria-pressed','false');
+    }
+  };
+
+  // initial: saved, else system
+  if(savedTheme){
+    applyTheme(savedTheme);
+  }else{
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyTheme(prefersDark ? 'dark' : 'light');
+  }
+
+  if(themeToggle){
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      const newTheme = isDark ? 'light' : 'dark';
+      localStorage.setItem('dgf_theme', newTheme);
+      applyTheme(newTheme);
     });
   }
 
+  // Cookie banner
   const cookieBanner = document.getElementById('cookie-banner');
   const accepted = localStorage.getItem('dgf_cookies_accepted');
   if (!accepted && cookieBanner) {
     cookieBanner.hidden = false;
   }
-
   const acceptBtn = document.getElementById('accept-cookies');
   const declineBtn = document.getElementById('decline-cookies');
   if (acceptBtn) {
@@ -48,16 +88,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Daily inspiration content - rotates by day
   const dailyEl = document.getElementById('daily');
   const todayQuote = document.getElementById('today-quote');
   const entries = [
-    { title: 'Hoopvolle start', text: 'Kies vandaag één klein ding dat je wél kunt doen. Die ene stap telt.', tip: 'Zet een timer van 10 minuten en begin.'},
-    { title: 'Verbinding', text: 'Een kort bericht aan een vriend kan iemands dag veranderen.', tip: 'Stuur één oprecht compliment.'},
+    { title: 'Hoopvolle start', text: 'Kies vandaag één klein ding dat je wél kunt doen. Die ene stap telt.' , tip: 'Zet een timer van 10 minuten en begin.'},
+    { title: 'Verbinding', text: 'Een kort bericht aan een vriend kan iemands dag veranderen.' , tip: 'Stuur één oprecht compliment.'},
     { title: 'Adem', text: 'Adem driemaal diep in; voel de spanning zachtjes wegsmelten.', tip: 'Doe het nu — 3 diepe ademhalingen.'},
-    { title: 'Kleine gewoonten', text: 'Kleine gewoonten stapelen zich op tot grote veranderingen.', tip: 'Kies één gewoonte en begin morgen.'},
-    { title: 'Dankbaarheid', text: 'Schrijf één ding op waar je dankbaar voor bent.', tip: 'Hou het kort — één zin.'},
-    { title: 'Leren', text: 'Elke dag een klein nieuw ding leren houdt de geest fris.', tip: 'Lees 5 minuten over iets dat je interesseert.'},
-    { title: 'Rust', text: 'Rust is productief: geef jezelf toestemming om niets te doen.', tip: 'Neem 5 minuten stilte.'}
+    { title: 'Kleine gewoonten', text: 'Kleine gewoonten stapelen zich op tot grote veranderingen.' , tip: 'Kies één gewoonte en begin morgen.'},
+    { title: 'Dankbaarheid', text: 'Schrijf één ding op waar je dankbaar voor bent.' , tip: 'Hou het kort — één zin.'},
+    { title: 'Leren', text: 'Elke dag een klein nieuw ding leren houdt de geest fris.' , tip: 'Lees 5 minuten over iets dat je interesseert.'},
+    { title: 'Rust', text: 'Rust is productief: geef jezelf toestemming om niets te doen.' , tip: 'Neem 5 minuten stilte.'}
   ];
 
   const dayIndex = (new Date()).getDate() % entries.length;
@@ -76,6 +117,53 @@ document.addEventListener('DOMContentLoaded', () => {
     todayQuote.textContent = entry.text;
   }
 
+  // Contact form submission (optional: Formspree)
+  window.handleContact = async function(e){
+    e.preventDefault();
+    const name = document.getElementById('name')?.value.trim();
+    const email = document.getElementById('email')?.value.trim();
+    const message = document.getElementById('message')?.value.trim();
+
+    if (!name || !email || !message) {
+      alert('Vul alstublieft alle velden in.');
+      return false;
+    }
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('message', message);
+
+    // If a Formspree ID is configured, send the form there
+    if (config && config.formspree_id){
+      const endpoint = `https://formspree.io/f/${config.formspree_id}`;
+      try{
+        const res = await fetch(endpoint, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+        if (res.ok){
+          alert('Dankjewel! Je bericht is verzonden.');
+          document.getElementById('contact-form').reset();
+          return false;
+        }else{
+          const data = await res.json();
+          console.error(data);
+          alert('Er ging iets mis bij het verzenden. Probeer later nogmaals.');
+          return false;
+        }
+      }catch(err){
+        console.error(err);
+        alert('Er ging iets mis bij het verzenden. Probeer later nogmaals.');
+        return false;
+      }
+    }
+
+    // Fallback: open mail client
+    const subject = encodeURIComponent('Contact via De Glimlachfabriek - ' + name);
+    const body = encodeURIComponent(message + "\n\n---\n" + name + "\n" + email);
+    window.location.href = `mailto:info@deglimlachfabriek.nl?subject=${subject}&body=${body}`;
+    return false;
+  };
+
+  // Simple accessibility: focus outline when keyboard used
   function handleFirstTab(e) {
     if (e.key === 'Tab') {
       document.body.classList.add('user-is-tabbing');
