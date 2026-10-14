@@ -35,7 +35,7 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/">
+      <a class="brand" href="/" aria-label="De Glimlachfabriek home">
         <img src="icons/icon-192.svg" alt="De Glimlachfabriek logo" class="logo" />
         <div class="brand-text">
           <h1>De Glimlachfabriek</h1>
@@ -60,45 +60,83 @@
   <main>
     <section class="hero">
       <div class="container hero-inner">
-        <h2>03:33 — Dromen • Denken • Doen</h2>
-        <p class="lead">Kleine stappen, groot verschil. Iedere dag inspiratie om hoop te vinden en kracht te delen.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="dagelijkse-hoop.html">Bekijk de Dagelijkse Hoop</a>
-          <a class="btn btn-outline" href="verhalen.html">Lees Verhalen</a>
+        <div class="hero-copy">
+          <span class="eyebrow">03:33</span>
+          <h2>Dromen • Denken • Doen</h2>
+          <p class="lead">Kleine stappen, groot verschil. Elke dag nieuwe inspiratie, echte verhalen en praktische hoop voor het leven dat je leeft.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="dagelijkse-hoop.html">Bekijk de Dagelijkse Hoop</a>
+            <a class="btn btn-secondary" href="verhalen.html">Lees Verhalen</a>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <div class="mini-pill">Vandaag</div>
+          <blockquote>“Je bent niet gebroken. Je bent in ontwikkeling.”</blockquote>
+          <div class="hero-metrics">
+            <div>
+              <strong>03:33</strong>
+              <span>Rust en focus</span>
+            </div>
+            <div>
+              <strong>7</strong>
+              <span>hoopvolle ideeën</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
+    <section class="container trust-row" aria-label="Belangrijke punten">
+      <div class="trust-item">Inspiração dagelijks</div>
+      <div class="trust-item">Positieve verhalen</div>
+      <div class="trust-item">Praktische hulp</div>
+      <div class="trust-item">AI met hoop</div>
+    </section>
+
     <section class="features container">
-      <article class="card">
+      <article class="card feature-card">
+        <div class="icon-box">✦</div>
         <h3>Dagelijkse inspiratie</h3>
-        <p>Elke dag een korte boodschap vol hoop en een praktische tip om meteen te gebruiken.</p>
+        <p>Een korte, krachtige boodschap om je dag een warme kant te geven.</p>
         <a class="more" href="dagelijkse-hoop.html">Lees verder →</a>
       </article>
 
-      <article class="card">
+      <article class="card feature-card">
+        <div class="icon-box">❤</div>
         <h3>Positieve verhalen</h3>
-        <p>Echte mensen, echte veerkracht. Laat je inspireren door verhalen van herstel en creativiteit.</p>
+        <p>Echte verhalen over veerkracht, verbinding en nieuwe kansen.</p>
         <a class="more" href="verhalen.html">Lees verder →</a>
       </article>
 
-      <article class="card">
+      <article class="card feature-card">
+        <div class="icon-box">✓</div>
         <h3>Praktische hulp</h3>
-        <p>Handige tips, tools en AI-ideeën die je helpen sterker en productiever te worden.</p>
+        <p>Handige tips en hoopvolle AI-ideeën die je meteen kunt gebruiken.</p>
         <a class="more" href="praktische-hulp.html">Lees verder →</a>
       </article>
     </section>
 
-    <section class="daily-sample container">
-      <h3>Vandaag’s korte gedachte</h3>
-      <blockquote id="today-quote">“Hoop is niet de afwezigheid van moeite; het is het vermogen om de moeilijkheid te zien en toch vooruit te gaan.”</blockquote>
-      <p class="muted">Kijk op de Dagelijkse Hoop-pagina voor meer.</p>
+    <section class="container spotlight">
+      <div class="spotlight-text">
+        <span class="section-tag">Onze beweging</span>
+        <h3>Van tegenslag naar kracht. Van één glimlach naar duizenden.</h3>
+        <p>We geloven dat een kleine, echte stap genoeg kan zijn om een groot verschil te maken. Door samen te delen, te leren en te zorgen, ontstaat er nieuwe hoop.</p>
+      </div>
+    </section>
+
+    <section class="container quote-panel">
+      <div class="quote-box">
+        <h3>Vandaag’s korte gedachte</h3>
+        <blockquote id="today-quote">“Hoop is niet de afwezigheid van moeite; het is het vermogen om de moeilijkheid te zien en toch vooruit te gaan.”</blockquote>
+        <p class="muted">Kijk op de Dagelijkse Hoop-pagina voor meer.</p>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <nav class="footer-nav">
+      <nav class="footer-nav" aria-label="Voettekstmenu">
         <a href="/">Home</a> •
         <a href="dagelijkse-hoop.html">Dagelijkse Hoop</a> •
         <a href="verhalen.html">Verhalen</a> •
@@ -114,7 +152,7 @@
     <p>We gebruiken functionele cookies om deze site goed te laten werken. Door te accepteren help je ons. <a href="cookiebeleid.html">Lees ons cookiebeleid</a>.</p>
     <div class="cookie-actions">
       <button id="accept-cookies" class="btn btn-primary">Accepteer</button>
-      <button id="decline-cookies" class="btn btn-outline">Weigeren</button>
+      <button id="decline-cookies" class="btn btn-secondary">Weigeren</button>
     </div>
   </div>
 
