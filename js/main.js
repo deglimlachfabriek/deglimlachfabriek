@@ -2,11 +2,11 @@
 const CONFIG_PATH = '/config.json';
 
 async function loadConfig(){
-  try{
+  try {
     const res = await fetch(CONFIG_PATH);
-    if(!res.ok) return {};
+    if (!res.ok) return {};
     return await res.json();
-  }catch(e){
+  } catch (e) {
     return {};
   }
 }
@@ -14,16 +14,14 @@ async function loadConfig(){
 document.addEventListener('DOMContentLoaded', async () => {
   const config = await loadConfig();
 
-  // Insert current year in footers
   const year = new Date().getFullYear();
   for (let i = 1; i <= 7; i++) {
     const el = document.getElementById('year' + (i === 1 ? '' : i));
     if (el) el.textContent = year;
   }
   const el0 = document.getElementById('year');
-  if(el0) el0.textContent = year;
+  if (el0) el0.textContent = year;
 
-  // Nav toggle for small screens
   const navToggle = document.getElementById('nav-toggle');
   if (navToggle) {
     const mainNav = document.getElementById('main-nav');
@@ -34,31 +32,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Theme (dark mode) handling
   const themeToggle = document.getElementById('theme-toggle');
   const savedTheme = localStorage.getItem('dgf_theme');
   const applyTheme = (theme) => {
     const root = document.documentElement;
-    if(theme === 'dark'){
+    if (theme === 'dark') {
       root.classList.add('dark');
-      root.setAttribute('data-theme','dark');
-      if(themeToggle) themeToggle.setAttribute('aria-pressed','true');
-    }else{
+      root.setAttribute('data-theme', 'dark');
+      if (themeToggle) themeToggle.setAttribute('aria-pressed', 'true');
+    } else {
       root.classList.remove('dark');
       root.removeAttribute('data-theme');
-      if(themeToggle) themeToggle.setAttribute('aria-pressed','false');
+      if (themeToggle) themeToggle.setAttribute('aria-pressed', 'false');
     }
   };
 
-  // initial: saved, else system
   if(savedTheme){
     applyTheme(savedTheme);
-  }else{
+  } else {
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     applyTheme(prefersDark ? 'dark' : 'light');
   }
 
-  if(themeToggle){
+  if (themeToggle) {
     themeToggle.addEventListener('click', () => {
       const isDark = document.documentElement.classList.contains('dark');
       const newTheme = isDark ? 'light' : 'dark';
@@ -67,7 +63,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Cookie banner
   const cookieBanner = document.getElementById('cookie-banner');
   const accepted = localStorage.getItem('dgf_cookies_accepted');
   if (!accepted && cookieBanner) {
@@ -88,7 +83,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Daily inspiration content - rotates by day
   const dailyEl = document.getElementById('daily');
   const todayQuote = document.getElementById('today-quote');
   const entries = [
@@ -117,7 +111,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     todayQuote.textContent = entry.text;
   }
 
-  // Contact form submission (optional: Formspree)
   window.handleContact = async function(e){
     e.preventDefault();
     const name = document.getElementById('name')?.value.trim();
@@ -134,36 +127,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     formData.append('email', email);
     formData.append('message', message);
 
-    // If a Formspree ID is configured, send the form there
-    if (config && config.formspree_id){
-      const endpoint = `https://formspree.io/f/${config.formspree_id}`;
-      try{
+    const formspreeId = (config.formspree_id || '').trim();
+    const isPlaceholder = !formspreeId || formspreeId === 'YOUR_FORM_ID' || formspreeId === 'YOUR_FORMSPREE_ID';
+
+    if (!isPlaceholder) {
+      const endpoint = `https://formspree.io/f/${formspreeId}`;
+      try {
         const res = await fetch(endpoint, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
-        if (res.ok){
+        if (res.ok) {
           alert('Dankjewel! Je bericht is verzonden.');
           document.getElementById('contact-form').reset();
           return false;
-        }else{
-          const data = await res.json();
-          console.error(data);
-          alert('Er ging iets mis bij het verzenden. Probeer later nogmaals.');
-          return false;
         }
-      }catch(err){
+        const payload = await res.json();
+        console.error(payload);
+        alert('Er ging iets mis bij het verzenden. Probeer later nogmaals.');
+        return false;
+      } catch (err) {
         console.error(err);
         alert('Er ging iets mis bij het verzenden. Probeer later nogmaals.');
         return false;
       }
     }
 
-    // Fallback: open mail client
     const subject = encodeURIComponent('Contact via De Glimlachfabriek - ' + name);
     const body = encodeURIComponent(message + "\n\n---\n" + name + "\n" + email);
-    window.location.href = `mailto:info@deglimlachfabriek.nl?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${config.contact_email || 'info@deglimlachfabriek.nl'}?subject=${subject}&body=${body}`;
     return false;
   };
 
-  // Simple accessibility: focus outline when keyboard used
   function handleFirstTab(e) {
     if (e.key === 'Tab') {
       document.body.classList.add('user-is-tabbing');
