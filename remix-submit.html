@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Remix Inzending — De Glimlachfabriek</title>
+  <meta name="description" content="Dien je remix in voor de Remix Contest." />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="De Glimlachfabriek home">
+        <img src="icons/icon-192.svg" alt="logo" class="logo" />
+      </a>
+      <nav class="main-nav" aria-label="Hoofdmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="remix.html">Remix Contest</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-shell">
+    <section class="page-header">
+      <span class="eyebrow">Inzending</span>
+      <h2>Dien je remix in</h2>
+      <p class="lead">Vul onderstaand formulier in. Je kunt een uploadlink opgeven of een bestand meesturen (max 100MB). Gebruik SoundCloud/Dropbox/WeTransfer als je grotere bestanden hebt.</p>
+    </section>
+
+    <section class="card legal-card">
+      <form id="remix-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data">
+        <label for="artist">Artiest / Producer</label>
+        <input id="artist" name="artist" type="text" required />
+
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" required />
+
+        <label for="track_link">Link naar remix (SoundCloud / Dropbox / WeTransfer)</label>
+        <input id="track_link" name="track_link" type="url" placeholder="https://" />
+
+        <label for="file">Upload bestand (optioneel, max 100MB)</label>
+        <input id="file" name="file" type="file" accept="audio/*" />
+
+        <label for="bio">Korte bio / social links</label>
+        <textarea id="bio" name="bio" rows="4"></textarea>
+
+        <label for="agree">Ik ga akkoord met de regels en het wedstrijdreglement</label>
+        <input id="agree" name="agree" type="checkbox" required />
+
+        <div class="form-actions" style="margin-top:1rem;">
+          <button type="submit" class="btn btn-primary">Verstuur inzending</button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+      </form>
+
+      <p class="muted" style="margin-top:1rem;">Opmerking: vervang YOUR_FORMSPREE_ID in het formulier door je eigen Formspree ID of configureer een andere inzendmethode.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="small">© <span id="year"></span> De Glimlachfabriek</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>
