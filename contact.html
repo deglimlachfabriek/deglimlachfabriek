@@ -1,74 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contact — De Glimlachfabriek</title>
-  <meta name="description" content="Contacteer De Glimlachfabriek voor samenwerkingen, tips of vragen." />
-  <link rel="stylesheet" href="css/styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — De Glimlachfabriek</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .contact-container { max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); color: #333; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #1f2937; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 5px; font-size: 1em; }
+        .btn-submit { background: #2563eb; color: white; border: none; padding: 12px 24px; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1em; }
+        .btn-submit:hover { background: #1d4ed8; }
+    </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="/">
-        <img src="icons/icon-192.svg" alt="logo" class="logo" />
-        <div class="brand-text">
-          <h1>De Glimlachfabriek</h1>
-          <p class="slogan">Van een idee naar een beweging</p>
+
+    <header>
+        <div class="logo-container">
+            <h1>De Glimlachfabriek</h1>
         </div>
-      </a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dagelijkse-hoop.html">Dagelijkse Hoop</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-      <nav class="main-nav" aria-label="Hoofdmenu">
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="dagelijkse-hoop.html">Dagelijkse Hoop</a></li>
-          <li><a href="verhalen.html">Verhalen</a></li>
-          <li><a href="praktische-hulp.html">Praktische Hulp</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="contact.html" aria-current="page">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container">
-    <section class="page-header">
-      <h2>Contact</h2>
-      <p class="lead">We horen graag van je — vragen, suggesties of verhalen. Vul onderstaand formulier in of stuur een e-mail.</p>
-    </section>
-
-    <section class="contact-card card">
-      <form id="contact-form" class="form" action="#" method="post" onsubmit="return handleContact(event)">
-        <label for="name">Naam</label>
-        <input id="name" name="name" type="text" required />
-
-        <label for="email">E-mail</label>
-        <input id="email" name="email" type="email" required />
-
-        <label for="message">Bericht</label>
-        <textarea id="message" name="message" rows="6" required></textarea>
-
-        <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Verstuur</button>
-          <button type="reset" class="btn btn-secondary">Reset</button>
+    <main>
+        <div class="contact-container">
+            <h2>🤝 Neem Contact Op</h2>
+            <p>Bent u geïnteresseerd om partner of sponsor te worden van Beanbot of De Glimlachfabriek? Vul het formulier in en we nemen zo snel mogelijk contact met u op.</p>
+            
+            <form action="https://formspree.io" method="POST">
+                <div class="form-group">
+                    <label for="name">Naam / Bedrijf:</label>
+                    <input type="text" id="name" name="name" required placeholder="Uw naam of bedrijfsnaam">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mailadres:</label>
+                    <input type="email" id="email" name="_replyto" required placeholder="uw@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Bericht:</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Wat kunnen we voor elkaar betekenen?"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Verzend Bericht</button>
+            </form>
         </div>
+    </main>
 
-        <p class="muted">Optioneel: verbind met Formspree voor echte ontvangst. Open config.json en zet je Formspree ID (gratis). Als dat niet is ingesteld, gebruiken we de mail-client als fallback.</p>
-      </form>
+    <footer>
+        <p>© 2026 De Glimlachfabriek — Dromen • Denken • Doen</p>
+    </footer>
 
-      <div class="contact-alt">
-        <h4>Direct e-mail</h4>
-        <p>Stuur naar: <a href="mailto:info@deglimlachfabriek.nl">info@deglimlachfabriek.nl</a></p>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span id="year5"></span> De Glimlachfabriek</p>
-    </div>
-  </footer>
-
-  <script src="js/main.js" defer></script>
 </body>
 </html>
